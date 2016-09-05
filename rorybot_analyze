@@ -1,0 +1,60 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+require 'mkmf'
+
+ruby_installed = find_executable 'node'
+rorybot_installed = find_executable 'rorybot'
+
+if ruby_installed.nil?
+  puts 'You need to install Node first!'
+end
+
+if rorybot_installed.nil?
+  puts 'You need to install Rorybot first!'
+end
+
+unless ruby_installed.nil? || rorybot_installed.nil?
+
+  file_type = nil
+
+  while !%w( rb erb md html ).include?(file_type)
+    puts 'Enter the filetype you want to search (rb, erb, md, or html)'
+    file_type = gets.chomp.to_s
+  end
+
+  # The glob `**/*.rb` should match every ruby file in a directory recursively,
+  # right? Globtester tells me so at least. For some reason Rorybot doesn't seem
+  # to catch ruby files at the same level as this script without also using
+  # `*.rb`. A problem for another day.
+
+  puts "Processing #{file_type} files recursively in #{Dir.pwd} with Rorybot"
+  `rorybot *.#{file_type} **/*.#{file_type} | tee rorybot_output.txt`
+
+  input_file = File.read('rorybot_output.txt')
+  output_file = File.open('frequency.csv', 'w+')
+  warning_message = /^.*warning  (.*)  .*$/
+  frequency = Hash.new(0)
+
+  puts 'Counting warning messages'
+  input_file.scan(warning_message) do |word|
+    frequency[word] += 1
+  end
+
+  puts 'Writing result to frequency.csv'
+  frequency.each do |key, value|
+    kv = "#{key}, #{value}"
+    output_file.puts(kv.tr('[', '').tr(']', ''))
+  end
+
+  puts 'Deleting temporary files'
+  FileUtils.rm('rorybot_output.txt')
+  FileUtils.rm('mkmf.log')
+
+  puts 'Use Google Sheets or Numbers to open frequency.csv for further
+   processing'
+
+   `exit 0`
+   `open .`
+
+end
