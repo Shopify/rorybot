@@ -1,14 +1,14 @@
 {
-  "name": "rorybot",
-  "version": "1.0.0",
-  "description": "Catch writing that doesn't follow Shopify style guide rules",
+  "name": "eliza-bot",
+  "version": "1.0.2",
+  "description": "Catch writing that doesn't follow Intercom style guide rules",
   "license": "MIT",
-  "homepage": "https://github.com/Shopify/rorybot",
+  "homepage": "https://github.com/skaelv/elizabot",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Shopify/rorybot"
+    "url": "https://github.com/skaelv/elizabot"
   },
-  "bugs": "https://github.com/Shopify/rorybot/issues",
+  "bugs": "https://github.com/skaelv/elizabot/issues",
   "author": {
     "name": "Adam Hollett",
     "email": "adam.hollett@shopify.com",
@@ -26,6 +26,10 @@
     {
       "name" : "Zachary Kain",
       "email" : "zachary.kain@shopify.com"
+    },
+    {
+      "name": "Kevin Antoine",
+      "email": "kevin.antoine@intercom.io"
     }
   ],
   "bin": "cli.js",
@@ -48,7 +52,7 @@
     "remark-retext": "^1.1.0",
     "retext": "^1.0.0",
     "retext-english": "^1.0.0",
-    "retext-shopify": "https://github.com/Shopify/retext-shopify.git",
+    "ic-retext": "https://github.com/skaelv/ic-retext.git",
     "retext-usage": "https://github.com/admhlt/retext-usage.git",
     "retext-simplify": "^1.1.0",
     "retext-equality": "^2.0.0",
